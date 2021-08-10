@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [counter, setCounter] = useState(0);
+  const textInputRef = useRef(true);
+  const numberInputRef = createRef();
+
+  const handleTextInputRef = () => textInputRef.current.focus();
+  const increaseCounter = () => {
+    setCounter(counter + 1)
+  };
+
+  useEffect(
+    () => {
+      textInputRef.current.focus()
+    }, []
+  );
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" ref={textInputRef} />
+      <input type="number" ref={numberInputRef} />
+      <button onClick={handleTextInputRef}>Ustaw focus na input</button>
+      <h2>{counter}</h2>
+      <button onClick={increaseCounter}>Przerenderuj komponent</button>
+
     </div>
   );
+
 }
 
 export default App;
